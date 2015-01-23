@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
+#include "platform.h"
 
 #define BUFFER_SIZE 2048
 #define PREFIX_BUFFER_SIZE 512
