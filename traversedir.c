@@ -4,10 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <errno.h>
-#include <assert.h>
 #include <string.h>
-#include "platform.h"
 #include "traversedir.h"
 
 static void PathCombine(char szOutPath[], size_t uLength, const char szPath1[], const char szPath2[])

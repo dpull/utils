@@ -19,18 +19,6 @@ typedef uint32_t WORD32;
 typedef unsigned int WORD32;
 #endif
 
-
-/**
-*  md5 hash function.
-*  @param message: aribtary string.
-*  @param len: message length.
-*  @param output: buffer to receive the hash value. Its size must be
-*  (at least) HASHSIZE.
-*/
-void md5 (const char *message, long len, char *output);
-
-
-
 /*
 ** Realiza a rotacao no sentido horario dos bits da variavel 'D' do tipo WORD32.
 ** Os bits sao deslocados de 'num' posicoes
