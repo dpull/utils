@@ -49,7 +49,7 @@ struct debug_tree* debug_tree_create(struct debug_tree* parent, const char* form
 	int length = vsnprintf(buff, sizeof(buff), format, marker);
 	va_end(marker);
 
-	if (length < 0 || length >= sizeof(buff))
+	if (length < 0 || length >= (int)sizeof(buff))
 		return NULL;
 
 	char* data = (char*)malloc(length + 1);
