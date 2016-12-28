@@ -11,8 +11,8 @@ struct io_buffer
     size_t length;
 };
 
-struct io_buffer *io_createbuffer(size_t length);
-void io_freebuffer(struct io_buffer *buffer);
+struct io_buffer *io_buffer_create(size_t length);
+void io_buffer_destory(struct io_buffer *buffer);
     
 struct io_buffer *io_readfile(const char *file_path);
 int io_file_exist(const char *file_path);
