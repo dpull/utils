@@ -46,7 +46,7 @@ struct io_buffer *io_readfile(const char *file_path)
     return buffer;
 }
 
-int io_file_exist(const char *file_path)
+int io_path_exist(const char *path)
 {
-    return access(file_path, F_OK) == 0;
+    return access(path, F_OK) == 0;
 }
