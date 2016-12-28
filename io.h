@@ -1,12 +1,22 @@
 #pragma once
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+    
+struct io_buffer
+{
+    void *data;
+    size_t length;
+};
 
-void* io_readfile(const char *file_path, long *buffer_size);
-void io_freebuffer(void *buffer);
-
+struct io_buffer *io_createbuffer(size_t length);
+void io_freebuffer(struct io_buffer *buffer);
+    
+struct io_buffer *io_readfile(const char *file_path);
+int io_file_exist(const char *file_path);
+    
 #ifdef __cplusplus
 }
 #endif
