@@ -1,12 +1,19 @@
 #include "io.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 #include <stdbool.h>
+#ifndef _MSC_VER
+#include <unistd.h>
+#endif
+
+#ifdef _MSC_VER
+#include <io.h> 
+#define access _access
+#define F_OK 00
+#endif 
 
 #define IS_DIR_SEPATRATOR(cPos)         (cPos == '\\' || cPos == '/')
-
 
 static long get_file_size(FILE *file)
 {
@@ -117,5 +124,5 @@ int io_path_combine(const char *file_path1, const char *file_path2, char *buffer
     int ret = snprintf(buffer, buffer_size, "%s%s%s", file_path1, separator_char, file_path2);
     buffer[buffer_size - 1] = '\0';
     
-    return ret >= 0 && ret < buffer_size;
+    return ret >= 0 && ret < (int)buffer_size;
 }
