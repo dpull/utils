@@ -1,5 +1,5 @@
-// 2010 @kingsoft.com by zhaochunfeng
-// 2015 @dpull.com by acai
+// 2010 by trumanzhao
+// 2015 by dpull
 
 #include <stdio.h>
 #include <stdlib.h>
