@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdbool.h>
+
+#define IS_DIR_SEPATRATOR(cPos)         (cPos == '\\' || cPos == '/')
+
 
 static long get_file_size(FILE *file)
 {
@@ -49,4 +54,68 @@ struct io_buffer *io_readfile(const char *file_path)
 int io_path_exist(const char *path)
 {
     return access(path, F_OK) == 0;
+}
+
+static const char* _strip_path(const char *file_path)
+{
+    size_t length = strlen(file_path);
+    if (length == 0)
+        return NULL;
+    
+    const char *pos = file_path + length - 1;
+    const char *file_name = file_path;
+    
+    while (pos >= file_path) {
+        if (IS_DIR_SEPATRATOR(*pos)) {
+            file_name = pos + 1;
+            break;
+        }
+        pos--;
+    }
+    return file_name;
+}
+
+int io_path_get_filename(const char *file_path, char *buffer, size_t buffer_size)
+{
+    const char *file_name = _strip_path(file_path);
+    if (!file_name)
+        return false;
+    
+    strncpy(buffer, file_name, buffer_size);
+    buffer[buffer_size - 1] = '\0';
+    return true;
+}
+
+int io_path_get_directoryname(const char *file_path, char *buffer, size_t buffer_size)
+{
+    const char *file_name = _strip_path(file_path);
+    if (!file_name)
+        return false;
+    
+    size_t length = file_name - file_path;
+    if (length >= buffer_size)
+        return false;
+    
+    memcpy(buffer, file_path, length);
+    buffer[length] = '\0';
+    return true;
+}
+
+int io_path_combine(const char *file_path1, const char *file_path2, char *buffer, size_t buffer_size)
+{
+    size_t length = strlen(file_path1);
+    if (length == 0) {
+        strncpy(buffer, file_path2, buffer_size);
+        buffer[buffer_size - 1] = '\0';
+        return true;
+    }
+    
+    const char *separator_char = "";
+    if (!IS_DIR_SEPATRATOR(file_path1[length - 1]))
+        separator_char = "/";
+    
+    int ret = snprintf(buffer, buffer_size, "%s%s%s", file_path1, separator_char, file_path2);
+    buffer[buffer_size - 1] = '\0';
+    
+    return ret >= 0 && ret < buffer_size;
 }
