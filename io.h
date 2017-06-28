@@ -7,8 +7,9 @@ extern "C" {
     
 struct io_buffer
 {
-    void *data;
-    size_t length;
+    int		identifier;
+    size_t	length;
+    char	data[];
 };
 
 struct io_buffer *io_buffer_create(size_t length);

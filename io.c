@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <assert.h>
 #ifndef _MSC_VER
 #include <unistd.h>
 #endif
@@ -14,6 +15,7 @@
 #endif 
 
 #define IS_DIR_SEPATRATOR(cPos)         (cPos == '\\' || cPos == '/')
+#define BUFFER_IDENTIFIER               'ACAI'
 
 static long get_file_size(FILE *file)
 {
@@ -26,16 +28,18 @@ static long get_file_size(FILE *file)
 
 struct io_buffer *io_buffer_create(size_t length)
 {
-    struct io_buffer *buffer = malloc(sizeof(*buffer));
-    buffer->data = malloc(length);
+    struct io_buffer* buffer = (struct io_buffer*)malloc(sizeof(*buffer) + length);
+    buffer->identifier = BUFFER_IDENTIFIER;
     buffer->length = length;
     return buffer;
 }
 
 void io_buffer_destory(struct io_buffer *buffer)
 {
-    free(buffer->data);
-    free(buffer);
+    if (buffer) {
+        assert(buffer->identifier == BUFFER_IDENTIFIER);
+        free(buffer);
+    }
 }
 
 struct io_buffer *io_readfile(const char *file_path)
