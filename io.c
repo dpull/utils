@@ -50,15 +50,17 @@ struct io_buffer *io_readfile(const char *file_path)
     
     long file_size = get_file_size(file);
     
-    struct io_buffer *buffer = io_buffer_create(file_size);
+    struct io_buffer *buffer = io_buffer_create(file_size + 1);
     
-    size_t nitems = fread(buffer->data, file_size, 1, file);
+    size_t nitems = fread(BUFFER_DATA(buffer), file_size, 1, file);
     if (nitems != 1) {
         io_buffer_destory(buffer);
         buffer = NULL;
     }
-    
     fclose(file);
+    
+    BUFFER_DATA(buffer)[file_size] = '\0';
+    BUFFER_LENGTH(buffer) = file_size;
     return buffer;
 }
 

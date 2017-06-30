@@ -11,6 +11,9 @@ struct io_buffer
     size_t	length;
     char	data[];
 };
+    
+#define BUFFER_LENGTH(io_buffer) io_buffer->length
+#define BUFFER_DATA(io_buffer) io_buffer->data
 
 struct io_buffer *io_buffer_create(size_t length);
 void io_buffer_destory(struct io_buffer *buffer);
