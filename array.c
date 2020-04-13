@@ -12,7 +12,7 @@ int binary_search(const void *key, const void *base, size_t num, size_t size, in
         int c = compar(key, (char*)base + i * size);
         if (c == 0) 
             return i;
-        if (c < 0)
+        if (c > 0)
             lo = i + 1;
         else 
             hi = i - 1;
