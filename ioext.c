@@ -49,7 +49,6 @@ struct io_buffer *io_readfile(const char *file_path)
         return NULL;
     
     long file_size = get_file_size(file);
-    
     struct io_buffer *buffer = io_buffer_create(file_size + 1);
     
     size_t nitems = fread(BUFFER_DATA(buffer), file_size, 1, file);
@@ -58,9 +57,11 @@ struct io_buffer *io_readfile(const char *file_path)
         buffer = NULL;
     }
     fclose(file);
-    
-    BUFFER_DATA(buffer)[file_size] = '\0';
-    BUFFER_LENGTH(buffer) = file_size;
+
+    if (buffer) {
+        BUFFER_DATA(buffer)[file_size] = '\0';
+        BUFFER_LENGTH(buffer) = file_size;
+    }
     return buffer;
 }
 
