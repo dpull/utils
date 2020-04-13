@@ -6,7 +6,7 @@
 
 
 #include <string.h>
-
+#include <stdio.h>
 
 
 
@@ -200,3 +200,13 @@ void md5 (const char *message, long len, char *output) {
   word32tobytes(d, output);
 }
 
+int md5_tostring(char *hash_value, char *str_output, int str_output_size) {
+   return snprintf(
+        str_output, str_output_size,
+        "%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x",
+        hash_value[0] & 0xFF, hash_value[1] & 0xFF, hash_value[2] & 0xFF, hash_value[3] & 0xFF, 
+        hash_value[4] & 0xFF, hash_value[5] & 0xFF, hash_value[6] & 0xFF, hash_value[7] & 0xFF, 
+        hash_value[8] & 0xFF, hash_value[9] & 0xFF, hash_value[10] & 0xFF, hash_value[11] & 0xFF, 
+        hash_value[12] & 0xFF, hash_value[13] & 0xFF, hash_value[14] & 0xFF, hash_value[15] & 0xFF
+    );
+}

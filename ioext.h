@@ -1,5 +1,6 @@
 #pragma once
 #include <stddef.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,11 +20,11 @@ struct io_buffer *io_buffer_create(size_t length);
 void io_buffer_destory(struct io_buffer *buffer);
     
 struct io_buffer *io_readfile(const char *file_path);
-int io_path_exist(const char *file_path);
+bool io_path_exist(const char *file_path);
     
-int io_path_get_filename(const char *file_path, char *buffer, size_t buffer_size);
-int io_path_get_directoryname(const char *file_path, char *buffer, size_t buffer_size);
-int io_path_combine(const char *file_path1, const char *file_path2, char *buffer, size_t buffer_size);
+bool io_path_get_filename(const char *file_path, char *buffer, size_t buffer_size);
+bool io_path_get_directoryname(const char *file_path, char *buffer, size_t buffer_size);
+bool io_path_combine(const char *file_path1, const char *file_path2, char *buffer, size_t buffer_size);
     
 #ifdef __cplusplus
 }

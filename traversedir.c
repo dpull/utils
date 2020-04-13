@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
 #include "traversedir.h"
 
@@ -152,8 +151,7 @@ void traversedir(const char dir[], traversedir_callback* callback, void* userdat
 	char* dup = strdup(dir);
 	char* pos = dup;
 
-	while (*pos != '\0')
-	{
+	while (*pos != '\0') {
 		if (*pos == '\\')
 			*pos = '/';
 		pos++;

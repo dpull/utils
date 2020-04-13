@@ -9,15 +9,15 @@
 
 struct debug_tree
 {
-	struct debug_tree* parent;
-	struct debug_tree* child;
-	struct debug_tree* sibling;
-	char* data;
+	struct debug_tree *parent;
+	struct debug_tree *child;
+	struct debug_tree *sibling;
+	char *data;
 };
 
-struct debug_tree* debug_tree_insert(struct debug_tree* parent, char* data)
+struct debug_tree *debug_tree_insert(struct debug_tree *parent, char *data)
 {
-	struct debug_tree* tree = (struct debug_tree*)malloc(sizeof(*tree));
+	struct debug_tree *tree = (struct debug_tree *)malloc(sizeof(*tree));
 	memset(tree, 0, sizeof(*tree));
 	tree->data = data;
 
@@ -25,7 +25,7 @@ struct debug_tree* debug_tree_insert(struct debug_tree* parent, char* data)
 		return tree;
 
 	if (parent->child) {
-		struct debug_tree* sibling = parent->child;
+		struct debug_tree *sibling = parent->child;
 		while (sibling->sibling)
 			sibling = sibling->sibling;
 
@@ -40,7 +40,7 @@ struct debug_tree* debug_tree_insert(struct debug_tree* parent, char* data)
 	return tree;
 }
 
-struct debug_tree* debug_tree_create(struct debug_tree* parent, const char* format, ...)
+struct debug_tree *debug_tree_create(struct debug_tree *parent, const char *format, ...)
 {
 	va_list marker;
 	char buff[BUFFER_SIZE];
@@ -52,13 +52,13 @@ struct debug_tree* debug_tree_create(struct debug_tree* parent, const char* form
 	if (length < 0 || length >= (int)sizeof(buff))
 		return NULL;
 
-	char* data = (char*)malloc(length + 1);
+	char *data = (char *)malloc(length + 1);
 	memcpy(data, buff, length);
 	data[length] = '\0';
 	return debug_tree_insert(parent, data);
 }
 
-void debug_tree_destroy(struct debug_tree* tree)
+void debug_tree_destroy(struct debug_tree *tree)
 {
 	while (tree->child) {
 		debug_tree_destroy(tree->child);
@@ -87,7 +87,7 @@ void debug_tree_destroy(struct debug_tree* tree)
 	free(tree);
 }
 
-void debug_tree_recursive_print(struct debug_tree* tree, FILE* stream, const char* prefix, bool is_print_sibling)
+void debug_tree_recursive_print(struct debug_tree *tree, FILE *stream, const char *prefix, bool is_print_sibling)
 {
 	char child_prefix[PREFIX_BUFFER_SIZE];
 	char last_child_prefix[PREFIX_BUFFER_SIZE];
@@ -112,9 +112,8 @@ void debug_tree_recursive_print(struct debug_tree* tree, FILE* stream, const cha
 	if (tree->child)
 		debug_tree_recursive_print(tree->child, stream, child_prefix_ref, true);
 
-	if (is_print_sibling)
-	{
-		struct debug_tree* sibling = tree->sibling;
+	if (is_print_sibling) {
+		struct debug_tree *sibling = tree->sibling;
 		while (sibling) {
 			debug_tree_recursive_print(sibling, stream, prefix, false);
 			sibling = sibling->sibling;
@@ -122,7 +121,7 @@ void debug_tree_recursive_print(struct debug_tree* tree, FILE* stream, const cha
 	}
 }
 
-void debug_tree_print(struct debug_tree* tree, FILE* stream)
+void debug_tree_print(struct debug_tree *tree, FILE *stream)
 {
 	debug_tree_recursive_print(tree, stream, "", tree);
 }

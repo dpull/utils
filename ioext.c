@@ -64,7 +64,7 @@ struct io_buffer *io_readfile(const char *file_path)
     return buffer;
 }
 
-int io_path_exist(const char *path)
+bool io_path_exist(const char *path)
 {
     return access(path, F_OK) == 0;
 }
@@ -88,7 +88,7 @@ static const char* _strip_path(const char *file_path)
     return file_name;
 }
 
-int io_path_get_filename(const char *file_path, char *buffer, size_t buffer_size)
+bool io_path_get_filename(const char *file_path, char *buffer, size_t buffer_size)
 {
     const char *file_name = _strip_path(file_path);
     if (!file_name)
@@ -99,7 +99,7 @@ int io_path_get_filename(const char *file_path, char *buffer, size_t buffer_size
     return true;
 }
 
-int io_path_get_directoryname(const char *file_path, char *buffer, size_t buffer_size)
+bool io_path_get_directoryname(const char *file_path, char *buffer, size_t buffer_size)
 {
     const char *file_name = _strip_path(file_path);
     if (!file_name)
@@ -114,7 +114,7 @@ int io_path_get_directoryname(const char *file_path, char *buffer, size_t buffer
     return true;
 }
 
-int io_path_combine(const char *file_path1, const char *file_path2, char *buffer, size_t buffer_size)
+bool io_path_combine(const char *file_path1, const char *file_path2, char *buffer, size_t buffer_size)
 {
     size_t length = strlen(file_path1);
     if (length == 0) {

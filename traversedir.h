@@ -1,5 +1,6 @@
 #ifndef TRAVERSEDIR_H
 #define TRAVERSEDIR_H
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
