@@ -40,3 +40,41 @@ TEST(binary_search, not_exist_large)
         ASSERT_EQ(index, ~(i + 1));
     }
 }
+
+static int g_permutation_callback_times;
+static bool permutation_callback(const int* array, size_t num)
+{
+    //for (auto i = 0; i < num; ++i) {
+    //    printf("%d, ", array[i]);
+    //}
+    //printf("\n");
+    g_permutation_callback_times++;
+    return true;
+}
+
+TEST(permutation, array_2)
+{
+    g_permutation_callback_times = 0;
+
+    int array[] = { 11, 22 };
+    permutation(array, sizeof(array) / sizeof(array[0]), permutation_callback);
+    ASSERT_EQ(g_permutation_callback_times, 2 * 1);
+}
+
+TEST(permutation, array_3)
+{
+    g_permutation_callback_times = 0;
+
+    int array[] = { 11, 22, 33 };
+    permutation(array, sizeof(array) / sizeof(array[0]), permutation_callback);
+    ASSERT_EQ(g_permutation_callback_times, 3 * 2 * 1);
+}
+
+TEST(permutation, array_4)
+{
+    g_permutation_callback_times = 0;
+
+    int array[] = { 11, 22, 33, 44 };
+    permutation(array, sizeof(array) / sizeof(array[0]), permutation_callback);
+    ASSERT_EQ(g_permutation_callback_times, 4 * 3 * 2 * 1);
+}

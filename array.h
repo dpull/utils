@@ -1,5 +1,6 @@
 #pragma once
 #include <stddef.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -12,6 +13,7 @@ extern "C" {
 */
 int binary_search(const void *key, const void *base, size_t num, size_t size, int (*compar)(const void *, const void *));
 
+bool permutation(int* array, size_t num, bool (*callback)(const int *, size_t num));
 #ifdef __cplusplus
 }
 #endif
