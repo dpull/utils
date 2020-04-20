@@ -1,6 +1,6 @@
 #include "array.h"
 
-int binary_search(const void *key, const void *base, size_t num, size_t size, int (*compar)(const void *, const void *))
+int binary_search(const void* key, const void* base, size_t num, size_t size, int (*compar)(const void*, const void*))
 {
     int lo = 0;
     int hi = (int)num - 1;
@@ -10,17 +10,17 @@ int binary_search(const void *key, const void *base, size_t num, size_t size, in
         int i = lo + ((hi - lo) >> 1);
 
         int c = compar(key, (char*)base + i * size);
-        if (c == 0) 
+        if (c == 0)
             return i;
         if (c > 0)
             lo = i + 1;
-        else 
+        else
             hi = i - 1;
     }
     return ~lo;
 }
 
-static bool permutation_impl(int *array, size_t num, size_t start, bool (*callback)(const int *, size_t num))
+static bool permutation_impl(int* array, size_t num, size_t start, bool (*callback)(const int*, size_t num))
 {
     if (start == num - 1) {
         return callback(array, num);
@@ -39,7 +39,17 @@ static bool permutation_impl(int *array, size_t num, size_t start, bool (*callba
     }
 }
 
-bool permutation(int *array, size_t num, bool (*callback)(const int *, size_t num))
+bool permutation(int* array, size_t num, bool (*callback)(const int*, size_t num))
 {
     return permutation_impl(array, num, 0, callback);
+}
+
+void print_array(int* array, size_t num, FILE* fd)
+{
+    fprintf(fd, "[");
+    for (size_t i = 0; i < num; i++) {
+        const char* fmt = i == 0 ? "%d" : ", %d";
+        fprintf(fd, fmt, array[i]);
+    }
+    fprintf(fd, "]");
 }
