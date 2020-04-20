@@ -14,7 +14,7 @@ struct hashmap_value
     intptr_t value;
 };
 
-struct hashmap* hashmap_create(size_t value_max_count);
+struct hashmap* hashmap_create(size_t capacity);
 void hashmap_destory(struct hashmap* hashmap);
 
 struct hashmap_value* hashmap_add(struct hashmap* hashmap, intptr_t key);
