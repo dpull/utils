@@ -84,7 +84,7 @@ void hashmap_traverse(struct hashmap* hashmap, hashmap_callback* callback)
         struct hashmap_value* hashmap_value = hashmap->hashmap_value + i;
         if (hashmap_value->key == HASHMAP_NULL || hashmap_value->key == HASHMAP_SENTINEL)
             continue;
-        if (!callback(hashmap_value))
+        if (callback(hashmap_value))
             break;
     }
 }
