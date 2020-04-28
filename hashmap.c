@@ -3,8 +3,8 @@
 #include <string.h>
 #include <assert.h>
 
-#define HASHMAP_NULL        (0)
-#define HASHMAP_SENTINEL    (-1)
+#define HASHMAP_NULL        (-1)
+#define HASHMAP_SENTINEL    (-2)
 
 struct hashmap 
 {
@@ -23,7 +23,10 @@ struct hashmap* hashmap_create(size_t capacity)
         return NULL;
 
     hashmap->capacity = capacity;
-    memset(hashmap->hashmap_value, HASHMAP_NULL, length);
+    for (size_t i = 0; i < capacity; ++i) {
+        hashmap->hashmap_value[i].key = HASHMAP_NULL;
+        hashmap->hashmap_value[i].value = 0;
+    }
     return hashmap;
 }
 
