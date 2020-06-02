@@ -1,5 +1,5 @@
-# c_utils
+# c_util
 
-`c_utils`.
+`c_util`.
 
 
