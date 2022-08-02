@@ -1,6 +1,6 @@
 #pragma once
-#include <stddef.h>
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdio.h>
 
 #ifdef __cplusplus
@@ -8,9 +8,8 @@ extern "C" {
 #endif
 
 struct circular_buffer;
-struct circular_buffer_value
-{
-    intptr_t value;
+struct circular_buffer_value {
+	intptr_t value;
 };
 
 struct circular_buffer* circular_buffer_create(size_t capacity);
